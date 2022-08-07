@@ -1,0 +1,17 @@
+{{ if eq .Values.env "dev" }}
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ .Chart.Name }}-dev
+spec:
+  containers:
+  - name: {{ .Chart.Name }}-dev
+    image: gcr.io/windmark/torch
+    command: ["/bin/sh"]
+    args: [
+      "-c",
+      "ls /trigger.txt | entr -r python /app/main.py"
+    ]
+
+{{ end }}

@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Chart.Name }}-test
+spec:
+  backoffLimit: 4
+  template:
+    metadata:
+      name: {{ .Chart.Name }}-test
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: {{ .Chart.Name }}-test
+        image: gcr.io/windmark/torch
+        command: ["pytest"]
+        args: ["/app/tests/"]
